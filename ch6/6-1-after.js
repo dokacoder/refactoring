@@ -8,9 +8,29 @@ printOwing 함수를 해석하려면 문서를 끝까지 읽어야함
 
 export function printOwing(invoice) {
   printBanner();
+
   let outstanding = calculateOutstanding(invoice);
 
-  // 지급날짜 계산
+  recordDueDate(invoice);
+
+  printDetails(invoice, outstanding);
+}
+
+function printBanner() {
+  console.log("***********************");
+  console.log("**** Customer Owes ****");
+  console.log("***********************");
+}
+
+function calculateOutstanding(invoice) {
+  let result = 0;
+  for (const o of invoice.orders) {
+    result += o.amount;
+  }
+  return result;
+}
+
+function recordDueDate(invoice) {
   const today = new Date();
   /* 객체에 지역변수를 생성해버림.. 객체는 불변성을 유지하는것이 좋음 
   불변성을 유지하면서 수정할수있는 방법으로 수정 Array.prototype.concat()*/
@@ -19,30 +39,17 @@ export function printOwing(invoice) {
     today.getMonth(),
     today.getDate() + 30
   );
+}
 
-  // 세부사항 출력
+function printDetails(invoice, outstanding) {
   console.log(`name: ${invoice.customer}`);
   console.log(`amount: ${outstanding}`);
   console.log(`due: ${invoice.dueDate.toLocaleDateString()}`);
-}
-function printBanner() {
-  console.log("***********************");
-  console.log("**** Customer Owes ****");
-  console.log("***********************");
-}
-function calculateOutstanding(invoice) {
-  /*예전에는 지역변수를 미리 작성해놓는 일이 많았지만 현업 트랜드는
-  사용하는 곳 가까이에 둠*/
-  // 총 가격 계산
-  let result = 0;
-  for (const o of invoice.orders) {
-    result += o.amount;
-  }
-  return result;
 }
 
 const invoice = {
   orders: [{ amount: 2 }, { amount: 5 }],
   customer: "엘리",
 };
+
 printOwing(invoice);
