@@ -7,10 +7,7 @@ printOwing 함수를 해석하려면 문서를 끝까지 읽어야함
 /* 읽어 내려가면서 주석을 달아보면 어떻게 추출할지 파악하기 쉬움*/
 
 export function printOwing(invoice) {
-  // 배너 출력
-  console.log("***********************");
-  console.log("**** Customer Owes ****");
-  console.log("***********************");
+  printBanner();
 
   /*예전에는 지역변수를 미리 작성해놓는 일이 많았지만 현업 트랜드는
   사용하는 곳 가까이에 둠*/
@@ -34,6 +31,11 @@ export function printOwing(invoice) {
   console.log(`name: ${invoice.customer}`);
   console.log(`amount: ${outstanding}`);
   console.log(`due: ${invoice.dueDate.toLocaleDateString()}`);
+}
+function printBanner() {
+  console.log("***********************");
+  console.log("**** Customer Owes ****");
+  console.log("***********************");
 }
 
 const invoice = {
