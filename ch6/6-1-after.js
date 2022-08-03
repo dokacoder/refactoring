@@ -8,11 +8,8 @@ printOwing 함수를 해석하려면 문서를 끝까지 읽어야함
 
 export function printOwing(invoice) {
   printBanner();
-
   let outstanding = calculateOutstanding(invoice);
-
   recordDueDate(invoice);
-
   printDetails(invoice, outstanding);
 }
 
@@ -23,11 +20,7 @@ function printBanner() {
 }
 
 function calculateOutstanding(invoice) {
-  let result = 0;
-  for (const o of invoice.orders) {
-    result += o.amount;
-  }
-  return result;
+  return invoice.orders.reduce((sum, order) => (sum += order.amount), 0);
 }
 
 function recordDueDate(invoice) {
