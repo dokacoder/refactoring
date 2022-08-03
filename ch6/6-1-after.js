@@ -8,14 +8,7 @@ printOwing 함수를 해석하려면 문서를 끝까지 읽어야함
 
 export function printOwing(invoice) {
   printBanner();
-
-  /*예전에는 지역변수를 미리 작성해놓는 일이 많았지만 현업 트랜드는
-  사용하는 곳 가까이에 둠*/
-  // 총 가격 계산
-  let outstanding = 0;
-  for (const o of invoice.orders) {
-    outstanding += o.amount;
-  }
+  let outstanding = calculateOutstanding(invoice);
 
   // 지급날짜 계산
   const today = new Date();
@@ -36,6 +29,16 @@ function printBanner() {
   console.log("***********************");
   console.log("**** Customer Owes ****");
   console.log("***********************");
+}
+function calculateOutstanding(invoice) {
+  /*예전에는 지역변수를 미리 작성해놓는 일이 많았지만 현업 트랜드는
+  사용하는 곳 가까이에 둠*/
+  // 총 가격 계산
+  let outstanding = 0;
+  for (const o of invoice.orders) {
+    outstanding += o.amount;
+  }
+  return outstanding;
 }
 
 const invoice = {
