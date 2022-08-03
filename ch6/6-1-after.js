@@ -34,11 +34,11 @@ function calculateOutstanding(invoice) {
   /*예전에는 지역변수를 미리 작성해놓는 일이 많았지만 현업 트랜드는
   사용하는 곳 가까이에 둠*/
   // 총 가격 계산
-  let outstanding = 0;
+  let result = 0;
   for (const o of invoice.orders) {
-    outstanding += o.amount;
+    result += o.amount;
   }
-  return outstanding;
+  return result;
 }
 
 const invoice = {
